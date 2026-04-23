@@ -1,0 +1,51 @@
+/* Variables globales - Estilo Minimalista */
+
+:root {
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8F8F8;
+  --text-primary: #0A0A0A;
+  --text-secondary: #6B6B6B;
+  --black: #0A0A0A;
+  --white: #FFFFFF;
+  --border: #E5E5E5;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+
+::selection { background: var(--black); color: var(--white); }
+
+/* ═══════════════════════════════════════════════════════════════
+   IMAGE LOADER - Simple Fade-in
+   ═══════════════════════════════════════════════════════════════ */
+
+.img-container {
+  position: relative;
+  overflow: hidden;
+  background: #f0f0f0;
+  aspect-ratio: 4 / 3;
+  min-height: 220px;
+  width: 100%;
+}
+
+.img-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

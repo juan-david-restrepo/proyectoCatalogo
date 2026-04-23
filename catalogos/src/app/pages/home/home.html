@@ -1,0 +1,61 @@
+<app-nav></app-nav>
+<main>
+
+    <section class="carousel">
+        <div class="carousel-track">
+            @for (slide of slides; track slide.id; let i = $index) {
+            <div class="carousel-slide" [class.active]="currentSlide() === i">
+                <img [src]="slide.imagen" [alt]="slide.nombre" />
+                <div class="carousel-overlay">
+                    <div class="carousel-content">
+                        <h2 class="carousel-title">{{ slide.nombre }}</h2>
+                        <p class="carousel-desc">{{ slide.descripcion }}</p>
+                        <p class="carousel-price">{{ formatPrice(slide.precio) }}</p>
+                        <button class="carousel-btn" (click)="irDetalles(slide.id)">Ver producto</button>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+
+        <button class="carousel-arrow carousel-arrow-left" (click)="prevSlide()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+
+        <button class="carousel-arrow carousel-arrow-right" (click)="nextSlide()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
+
+        <div class="carousel-indicators">
+            @for (slide of slides; track slide.id; let i = $index) {
+            <button 
+                class="carousel-indicator" 
+                [class.active]="currentSlide() === i"
+                (click)="goToSlide(i)">
+            </button>
+            }
+        </div>
+    </section>
+
+    <section class="categorias">
+        <h2>Explora nuestras categorías</h2>
+        <div class="categorias-grid">
+            @for (cat of categorias(); track cat.id) {
+            <div class="categoria-card" (click)="irCategoria(cat.id)">
+                <div class="img-container">
+                    <img [src]="cat.imagen" [alt]="cat.nombre" loading="lazy" />
+                </div>
+                <div class="categoria-info">
+                    <h3>{{ cat.nombre }}</h3>
+                    <p>{{ cat.descripcion }}</p>
+                </div>
+            </div>
+            }
+        </div>
+    </section>
+
+</main>

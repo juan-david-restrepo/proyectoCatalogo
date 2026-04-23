@@ -1,0 +1,160 @@
+<app-nav></app-nav>
+<main>
+    @if (categoria()) {
+    <section class="categoria-header" [style.backgroundImage]="'url(' + categoria()!.imagen + ')'">
+        <div class="header-overlay">
+            <h1>{{ categoria()!.nombre }}</h1>
+            <p>{{ categoria()!.descripcion }}</p>
+        </div>
+    </section>
+
+    @if (categoria()!.id === 1) {
+    <section class="filtros-section">
+        <button 
+            class="filtro-btn" 
+            [class.active]="filtroActual() === 'todos'"
+            (click)="filtrar('todos')">
+            Todos
+        </button>
+        <button 
+            class="filtro-btn" 
+            [class.active]="filtroActual() === 'camas'"
+            (click)="filtrar('camas')">
+            Camas
+        </button>
+        <button 
+            class="filtro-btn" 
+            [class.active]="filtroActual() === 'mesas_noche'"
+            (click)="filtrar('mesas_noche')">
+            Mesas de Noche
+        </button>
+        <button 
+            class="filtro-btn" 
+            [class.active]="filtroActual() === 'colchones'"
+            (click)="filtrar('colchones')">
+            Colchones
+        </button>
+    </section>
+    }
+
+    @if (categoria()!.id === 4) {
+    <section class="filtros-section">
+        <button 
+            class="filtro-btn" 
+            [class.active]="filtroActual() === 'todos'"
+            (click)="filtrar('todos')">
+            Todos
+        </button>
+        <button 
+            class="filtro-btn" 
+            [class.active]="filtroActual() === 'escritorios'"
+            (click)="filtrar('escritorios')">
+            Escritorios
+        </button>
+        <button 
+            class="filtro-btn" 
+            [class.active]="filtroActual() === 'mesas_aux'"
+            (click)="filtrar('mesas_aux')">
+            Mesas Auxiliares
+        </button>
+        <button 
+            class="filtro-btn" 
+            [class.active]="filtroActual() === 'cajoneros'"
+            (click)="filtrar('cajoneros')">
+            Cajoneros
+        </button>
+    </section>
+    }
+
+    @if (categoria()!.id === 2) {
+    <section class="filtros-section">
+        <button 
+            class="filtro-btn" 
+            [class.active]="filtroActual() === 'todos'"
+            (click)="filtrar('todos')">
+            Todos
+        </button>
+        <button 
+            class="filtro-btn" 
+            [class.active]="filtroActual() === 'sofas'"
+            (click)="filtrar('sofas')">
+            Sofás
+        </button>
+        <button 
+            class="filtro-btn" 
+            [class.active]="filtroActual() === 'sofa_camas'"
+            (click)="filtrar('sofa_camas')">
+            Sofá Camas
+        </button>
+        <button 
+            class="filtro-btn" 
+            [class.active]="filtroActual() === 'sillas_aux'"
+            (click)="filtrar('sillas_aux')">
+            Sillas Auxiliares
+        </button>
+        <button 
+            class="filtro-btn" 
+            [class.active]="filtroActual() === 'mesas_tv'"
+            (click)="filtrar('mesas_tv')">
+            Mesas TV
+        </button>
+    </section>
+    }
+
+    @if (categoria()!.id === 3) {
+    <section class="filtros-section">
+        <button 
+            class="filtro-btn" 
+            [class.active]="filtroActual() === 'todos'"
+            (click)="filtrar('todos')">
+            Todos
+        </button>
+        <button 
+            class="filtro-btn" 
+            [class.active]="filtroActual() === 'comedores'"
+            (click)="filtrar('comedores')">
+            Comedores
+        </button>
+        <button 
+            class="filtro-btn" 
+            [class.active]="filtroActual() === 'sillas_comedor'"
+            (click)="filtrar('sillas_comedor')">
+            Sillas Comedor
+        </button>
+        <button 
+            class="filtro-btn" 
+            [class.active]="filtroActual() === 'sillas_barra'"
+            (click)="filtrar('sillas_barra')">
+            Sillas de Barra
+        </button>
+    </section>
+    }
+
+    <section class="productos-section">
+        <h2>Todos los productos</h2>
+        <div class="productos-grid">
+            @for (producto of productosMostrados(); track producto.id) {
+            <div class="producto-card" (click)="irDetalles(producto.id)">
+                <div class="img-container">
+                    <img [src]="producto.imagen" [alt]="producto.nombre" loading="lazy" />
+                </div>
+                <div class="producto-info">
+                    <h3>{{ producto.nombre }}</h3>
+                    <p class="descripcion">{{ producto.descripcion }}</p>
+                    <div class="detalles-producto">
+                        <span class="material">{{ producto.material }}</span>
+                        <span class="medidas">{{ producto.medidas }}</span>
+                    </div>
+                    <div class="precios">
+                        <span class="precio">${{ producto.precio | number }}</span>
+                    </div>
+                    <button class="btn-ver">Ver detalles</button>
+                </div>
+            </div>
+            }
+        </div>
+    </section>
+    } @else {
+    <div class="cargando">Cargando...</div>
+    }
+</main>

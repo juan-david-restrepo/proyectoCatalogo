@@ -1,0 +1,57 @@
+<app-nav></app-nav>
+<main>
+    @if (producto()) {
+    <section class="producto-seccion">
+        <div class="producto-imagen" (click)="abrirZoom()">
+            <div class="img-container">
+                <img [src]="producto()!.imagen" [alt]="producto()!.nombre" loading="lazy" />
+            </div>
+            <div class="zoom-hint">
+                <span>Click para ampliar</span>
+            </div>
+        </div>
+        <div class="producto-info">
+            <h1>{{ producto()!.nombre }}</h1>
+
+            <div class="precio-contenedor">
+                <span class="precio">${{ producto()!.precio | number }}</span>
+            </div>
+
+            <div class="especificaciones">
+                <div class="spec-item">
+                    <span class="spec-label">Material:</span>
+                    <span class="spec-value">{{ producto()!.material }}</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Medidas:</span>
+                    <span class="spec-value">{{ producto()!.medidas }}</span>
+                </div>
+            </div>
+
+            <div class="whatsapp-nota">
+                <span>Las compras se realizan vía WhatsApp. Contáctanos para ajustar el precio y coordinar tu pedido.</span>
+            </div>
+
+            <button class="add-cart">Comprar vía WhatsApp</button>
+
+            <div class="sinopsis">
+                <b>Descripción</b>
+                <p>{{ producto()!.descripcion }}</p>
+            </div>
+        </div>
+    </section>
+
+    @if (zoomActivo()) {
+    <div class="zoom-modal" (click)="cerrarZoom()">
+        <button class="zoom-cerrar" (click)="cerrarZoom()">✕</button>
+        <div class="zoom-contenido" (click)="$event.stopPropagation()">
+            <div class="img-container">
+                <img [src]="producto()!.imagen" [alt]="producto()!.nombre" />
+                <div class="img-skeleton"></div>
+            </div>
+        </div>
+        <div class="zoom-instruccion">Click fuera para cerrar</div>
+    </div>
+    }
+    }
+</main>
