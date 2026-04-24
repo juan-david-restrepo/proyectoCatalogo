@@ -40,6 +40,17 @@ app.get('/api/categorias', async (req, res) => {
 // GET /api/productos  (todos)
 app.get('/api/productos', async (req, res) => {
   try {
+    const { ids } = req.query;
+    
+    if (ids) {
+      const idArray = ids.split(',').map(id => parseInt(id.trim(), 10)).filter(id => !isNaN(id));
+      if (idArray.length === 0) return res.status(400).json({ error: 'IDs inválidos' });
+      
+      const placeholders = idArray.map(() => '?').join(',');
+      const [rows] = await pool.query(`SELECT * FROM productos WHERE id IN (${placeholders})`, idArray);
+      return res.json(rows);
+    }
+    
     const [rows] = await pool.query('SELECT * FROM productos ORDER BY id');
     res.json(rows);
   } catch (err) {

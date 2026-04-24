@@ -26,12 +26,12 @@ main {
 
 /* Imagen del Producto */
 .producto-imagen {
-    position: sticky;
     top: 100px;
     cursor: zoom-in;
     border-radius: 20px;
     overflow: hidden;
     transition: all 0.3s ease;
+    height: auto;
 }
 
 .producto-imagen:hover {
@@ -186,7 +186,6 @@ main {
     flex-direction: column;
     gap: 0;
     margin-bottom: 2rem;
-    background: #F8F8F8;
     border-radius: 14px;
     overflow: hidden;
 }
@@ -195,8 +194,7 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid #EFEFEF;
+    padding: 1.25rem 0rem;
 }
 
 .spec-item:last-child {

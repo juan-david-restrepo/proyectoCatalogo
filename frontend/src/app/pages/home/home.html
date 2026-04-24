@@ -1,0 +1,121 @@
+<app-nav></app-nav>
+<main>
+
+    <section class="carousel">
+        <div class="carousel-track">
+            @for (slide of slides; track slide.id; let i = $index) {
+            <div class="carousel-slide" [class.active]="currentSlide() === i">
+                <img [src]="slide.imagen" [alt]="slide.nombre" />
+                <div class="carousel-overlay">
+                    <div class="carousel-content">
+                        <h2 class="carousel-title">{{ slide.nombre }}</h2>
+                        <p class="carousel-desc">{{ slide.descripcion }}</p>
+                        <p class="carousel-price">{{ formatPrice(slide.precio) }}</p>
+                        <button class="carousel-btn" (click)="irDetalles(slide.id)">Ver producto</button>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+
+        <button class="carousel-arrow carousel-arrow-left" (click)="prevSlide()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+
+        <button class="carousel-arrow carousel-arrow-right" (click)="nextSlide()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
+
+        <div class="carousel-indicators">
+            @for (slide of slides; track slide.id; let i = $index) {
+            <button class="carousel-indicator" [class.active]="currentSlide() === i" (click)="goToSlide(i)">
+            </button>
+            }
+        </div>
+    </section>
+
+    <section class="categorias">
+        <h2>Explora nuestras categorías</h2>
+        <div class="categorias-grid">
+            @for (cat of categorias(); track cat.id) {
+            <div class="categoria-card" (click)="irCategoria(cat.id)">
+                <div class="img-container">
+                    <img [src]="cat.imagen" [alt]="cat.nombre" loading="lazy" />
+                </div>
+                <div class="categoria-info">
+                    <h3>{{ cat.nombre }}</h3>
+                    <p>{{ cat.descripcion }}</p>
+                </div>
+            </div>
+            }
+        </div>
+    </section>
+
+
+    <section class="top-productos">
+        <h2>Top 10 DeCasa</h2>
+        <div class="top-carousel">
+            <button class="top-carousel-arrow top-carousel-arrow-left" (click)="prevTopCarousel()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+
+            <div class="top-carousel-viewport">
+                <div class="top-carousel-track" [style.transform]="topCarouselTransform">
+                    @for (producto of topProductos(); track producto.id; let i = $index) {
+                    <div class="top-producto-card">
+                        <div class="card-inner" (click)="irDetalles(producto.id)">
+                            <div class="top-producto-rank">{{ i + 1 }}</div>
+                            <div class="img-container">
+                                <img [src]="producto.imagen" [alt]="producto.nombre" loading="lazy" />
+                            </div>
+                            <div class="top-producto-info">
+                                <h4>{{ producto.nombre }}</h4>
+                                <div>
+                                    <p class="top-producto-precio">{{ formatPrice(producto.precio) }}</p>
+                                    <button class="btn-oferta">Conseguir</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <button class="top-carousel-arrow top-carousel-arrow-right" (click)="nextTopCarousel()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+
+    <section class="exclusivos">
+        <h2>Lo más exclusivo</h2>
+        <div class="exclusivos-grid">
+            @for (producto of productosExclusivos(); track producto.id) {
+            <div class="exclusivo-card" (click)="irDetalles(producto.id)">
+                <div class="img-container">
+                    <img [src]="producto.imagen" [alt]="producto.nombre" loading="lazy" />
+                </div>
+                <div class="exclusivo-info">
+                    <h3>{{ producto.nombre }}</h3>
+                    <p>{{ producto.descripcion }}</p>
+                </div>
+            </div>
+            }
+        </div>
+    </section>
+
+</main>

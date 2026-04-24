@@ -24,6 +24,14 @@ export class Home implements OnInit, OnDestroy {
 
   categorias = signal<CategoriaModel[]>([]);
   todosProductos = signal<Producto[]>([]);
+  topProductos = signal<Producto[]>([]);
+  productosExclusivos = signal<Producto[]>([]);
+
+  topProductosIds = [1, 35, 80, 60, 100, 170, 120, 75, 97, 135];
+  exclusivosIds = [4, 55, 129, 61];
+  topGroupIndex = signal(0);
+
+  private readonly ITEMS_PER_GROUP = 5;
 
   slides: CarouselSlide[] = [
     {
@@ -71,6 +79,16 @@ export class Home implements OnInit, OnDestroy {
 
     this.productosService.getTodosProductos().subscribe(prods => {
       this.todosProductos.set(prods);
+    });
+
+    this.productosService.getProductosPorIds(this.topProductosIds).subscribe(prods => {
+      const ordered = this.topProductosIds.map(id => prods.find(p => p.id === id)).filter((p): p is Producto => p !== undefined);
+      this.topProductos.set(ordered);
+    });
+
+    this.productosService.getProductosPorIds(this.exclusivosIds).subscribe(prods => {
+      const ordered = this.exclusivosIds.map(id => prods.find(p => p.id === id)).filter((p): p is Producto => p !== undefined);
+      this.productosExclusivos.set(ordered);
     });
 
     this.startAutoplay();
@@ -121,6 +139,23 @@ export class Home implements OnInit, OnDestroy {
 
   irDetalles(id: number) {
     this.router.navigate(['/detalles', id]);
+  }
+
+  prevTopCarousel() {
+    if (this.topGroupIndex() > 0) {
+      this.topGroupIndex.update(i => i - 1);
+    }
+  }
+
+  nextTopCarousel() {
+    const maxGroup = Math.floor(this.topProductos().length / this.ITEMS_PER_GROUP) - 1;
+    if (this.topGroupIndex() < maxGroup) {
+      this.topGroupIndex.update(i => i + 1);
+    }
+  }
+
+  get topCarouselTransform(): string {
+    return 'translateX(-' + (this.topGroupIndex() * 100) + '%)';
   }
 
 }

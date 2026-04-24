@@ -40,4 +40,10 @@ export class ProductosService {
     if (subcategoria) url += `?subcategoria=${subcategoria}`;
     return this.http.get<Producto[]>(url);
   }
+
+  /** Productos por IDs específicos */
+  getProductosPorIds(ids: number[]): Observable<Producto[]> {
+    const idsParam = ids.join(',');
+    return this.http.get<Producto[]>(`${this.api}/productos?ids=${idsParam}`);
+  }
 }
